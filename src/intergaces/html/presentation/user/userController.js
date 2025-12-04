@@ -20,6 +20,28 @@ class UserController {
         this.changePasswordOperation = changePasswordOperation
     }
 
+    async generateQRCode(req, res) {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+            return res.status(400).json({ message: 'Missing id' });
+            }
+
+            const result = await this.getQRCodeOperation.generate({ id });
+
+            return res.status(200).json({
+            message: 'QR Code gerado com sucesso',
+            data: result
+            });
+
+        } catch (error) {
+            console.error('Error generating QR Code:', error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+
     async createUser(req, res) {
         try {
             console.log("Create User ---- ")

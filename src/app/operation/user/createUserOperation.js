@@ -17,7 +17,7 @@ class UserOperation {
 
         const hashedPassword = await this.hashPasswordService.hashPassword(password);
   
-        this.sendEmailService.sendMail({ email, name, nick_name, password });
+        // this.sendEmailService.sendMail({ email, name, nick_name, password });
         
         return await this.createUserService.createUser({ 
           email, 

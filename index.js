@@ -22,7 +22,7 @@ const PORT = 3030;
 //     console.error('Error connecting to MongoDB:', err);
 // });
 app.use(cors({
-    origin: 'https://simple-front-end-ochre.vercel.app'
+    origin: 'http://localhost:8080'
 }));
 app.use(express.json());
 app.use('/users', userRoutes);

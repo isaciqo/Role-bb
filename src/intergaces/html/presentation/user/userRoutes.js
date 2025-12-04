@@ -1,6 +1,134 @@
-const { header } = require('express-validator');
+/**
+ * @openapi
+ * /create:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Cria um novo usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserCreate'
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso
+ *
+ * /confirm/{token}:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Confirma email do usuário
+ *     parameters:
+ *       - name: token
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Email confirmado
+ *
+ * /updateUser:
+ *   patch:
+ *     tags:
+ *       - User
+ *     summary: Atualiza dados do usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserUpdate'
+ *     responses:
+ *       200:
+ *         description: Usuário atualizado
+ *
+ * /changePassword:
+ *   patch:
+ *     tags:
+ *       - User
+ *     summary: Troca a senha do usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ChangePassword'
+ *     responses:
+ *       200:
+ *         description: Senha alterada
+ *
+ * /requestReset/{email}:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Solicita recuperação de senha
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Email enviado
+ *
+ * /confirmReset/{token}:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Confirma reset de senha
+ *     parameters:
+ *       - name: token
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ConfirmReset'
+ *     responses:
+ *       200:
+ *         description: Senha redefinida
+ *
+ * /login:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Login do usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login'
+ *     responses:
+ *       200:
+ *         description: Login realizado
+ *
+ * /user/{user_id}:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Obtém um usuário pelo ID
+ *     parameters:
+ *       - name: user_id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Usuário encontrado
+ */
 
 const userSchema  = require('./userSchemas')();
+const carbonSchema  = require('../carbon/carbonSchemas')();
 
 module.exports = [
     {
@@ -65,6 +193,14 @@ module.exports = [
       handler: 'userController.getUser',
       validation: {
         params: userSchema.getUser
+      }
+    },
+    {
+      method: 'get',
+      path: '/qrcode/:qrcodeID',
+      handler: 'carbonController.generateQRCode',
+      validation: {
+        params: carbonSchema.get
       }
     }
 ];

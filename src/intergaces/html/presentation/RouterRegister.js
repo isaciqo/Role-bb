@@ -1,5 +1,6 @@
 const userRoutes = require('./user/userRoutes');
 const calendarRoutes = require('./Calendar/CalendarRoutes');
+const carbonRoutes = require('./carbon/carbonRoutes');
 const validationMiddleware = require('../middlewares/validationMiddleware');
 
 const registerRoutes = (app, routes, container) => {
@@ -18,6 +19,7 @@ const registerRoutes = (app, routes, container) => {
 const routerRegister = (app, container) => {
   registerRoutes(app, userRoutes, container);
   registerRoutes(app, calendarRoutes, container);
+  registerRoutes(app, carbonRoutes, container);
 };
 
 module.exports = routerRegister;
