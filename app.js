@@ -18,7 +18,7 @@ mongoose.connect('mongodb+srv://isaciqo42_db_user:w7cs5W275vrCU2jn@simplesoftwar
 app.use(express.json());
 app.use(scopePerRequest(container));
 app.use(cors({
-    origin: 'https://carbon-footprint-hub-zeta.vercel.app/'
+    origin: 'https://carbon-footprint-hub-zeta.vercel.app'
 }));
 swaggerDocs(app);
 routerRegister(app, container);
