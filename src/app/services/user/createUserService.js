@@ -21,6 +21,8 @@ class UserService {
         password,
         isConfirmed: true
       });
+
+      
       const savedUser = await newUser.save();
       return savedUser;
     } catch (error) {

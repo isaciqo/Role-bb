@@ -21,6 +21,7 @@ class ValidateLoginService {
 
             const response = {
                 user_id: user.user_id,
+                name: user.name,
                 schedulesCreated: user.schedulesCreated,
                 schedulesJoined: user.schedulesJoined
             };

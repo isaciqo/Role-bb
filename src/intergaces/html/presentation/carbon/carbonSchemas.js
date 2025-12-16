@@ -47,7 +47,51 @@ module.exports = () => ({
             auditTrail: Joi.array().items(Joi.string()).required(),
         }),
 
-        getByGtin: Joi.object({
-            gtin: Joi.string().required()
-        })
+    getByGtin: Joi.object({
+        gtin: Joi.string().required()
+    }),
+
+    createDashboard: Joi.object({
+        user_id: Joi.string().required(),
+
+        totalFootprint: Joi.number().required(),          // kg CO₂ total
+        productsConsumed: Joi.number().integer().required(),
+        reductionAchieved: Joi.number().required(),
+
+        ranking: Joi.object({
+        position: Joi.number().integer().required(),
+        total: Joi.number().integer().required(),
+        cityAverage: Joi.number().required(),
+        stateAverage: Joi.number().required(),
+        countryAverage: Joi.number().required()
+        }).required(),
+
+        monthlyData: Joi.array()
+        .items(
+            Joi.object({
+            month: Joi.string().required(),              // "Jan", "Fev", etc
+            footprint: Joi.number().required()           // kg CO₂
+            })
+        )
+        .min(1)
+        .required(),
+
+        actions: Joi.array()
+        .items(Joi.string())
+        .required()
+    }),
+
+    getDashboard: Joi.object({
+        user_id: Joi.string().required()
+    }),
+
+    rankingUpsert: Joi.object({
+        user_id: Joi.string().required(),
+        name: Joi.string().required(),
+        value: Joi.number().required()
+    }),
+
+    getRanking: Joi.object({
+        city: Joi.string()
+    }),
 });

@@ -6,9 +6,9 @@ class GetQRCodeService {
 
   async generateQRCode({ qrcodeID }) {
     try {
-      const link = `http://localhost:8080/passaporte/1`;
+      const link = `https://carbon-footprint-hub-zeta.vercel.app/passaporte/17899876543217`;
 
-      const filePath = path.join(__dirname, '../../../', `qrcode_${qrcodeID}.png`);
+      const filePath = path.join(__dirname, '../../../', `qrcode_${7}.png`);
 
       await QRCode.toFile(filePath, link, {
         errorCorrectionLevel: 'L',

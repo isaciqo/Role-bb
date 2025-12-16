@@ -20,5 +20,28 @@ module.exports = [
     path: '/product/:gtin',
     handler: 'carbonController.getProduct',
     validation: { params: carbonSchema.getByGtin }
+  },
+  {
+  method: 'post',
+  path: '/dashboard',
+  handler: 'carbonController.createDashboard',
+  validation: { body: carbonSchema.createDashboard }
+},
+{
+  method: 'get',
+  path: '/dashboard/:user_id',
+  handler: 'carbonController.getDashboard',
+  validation: { params: carbonSchema.getDashboard }
+},{
+    method: 'post',
+    path: '/ranking',
+    handler: 'carbonController.createOrUpdateRanking',
+    validation: { body: carbonSchema.rankingUpsert }
+  },
+  {
+    method: 'get',
+    path: '/ranking',
+    handler: 'carbonController.getRanking',
+    validation: { params: carbonSchema.getRanking }
   }
 ];
